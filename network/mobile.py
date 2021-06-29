@@ -2,6 +2,10 @@ class MobilePhone():
 	def __init__(self, number):
 		self.number = number
 		self.switched_on = True
+		self.location = None
+
+	def __str__(self):
+		return "Mobile | number: "+str(self.number)+" location: "+str(self.location)
 
 	def number(self):
 		return self.number
@@ -19,5 +23,5 @@ class MobilePhone():
 		self.switched_on = Falses
 
 	def location(self):
-		return None
+		return self.location
 

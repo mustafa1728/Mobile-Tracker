@@ -1,8 +1,14 @@
+from networks.set import Myset
+
 class Exchange():
 	def __init__(self, id=0):
 		self.id = id
 		self.parent = None
 		self.children = []
+		self.mobiles = Myset([])
+
+	def __str__(self):
+		return "Exchange | id: "+str(self.id)
 
 	def parent(self):
 		return self.parent
@@ -17,4 +23,7 @@ class Exchange():
 
 	def isRoot(self):
 		return self.parent = None
+
+	def residentSet(self):
+		return self.mobiles
 

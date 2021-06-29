@@ -7,10 +7,14 @@ class RoutingMapTree():
 		self.root = Exchange(0)
 
 	def switchOn(mobile, exchange):
-		self.mobile.switchOn()
+		mobile.switchOn()
+		mobile.location = exchange
+		self.exchange.mobiles.Insert(mobile)
 
 	def switchOff(mobile):
-		self.mobile.switchOff()
+		mobile.switchOff()
+		mobile.location = None
+		self.exchange.mobiles.Delete(mobile)
 
 	def performAction(message):
 		pass

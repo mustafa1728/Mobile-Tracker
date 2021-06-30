@@ -1,0 +1,29 @@
+addExchange 0 1
+addExchange 0 2
+addExchange 0 3
+queryNthChild 0 0
+queryNthChild 0 2
+addExchange 1 4
+addExchange 1 5
+addExchange 2 6
+addExchange 2 7
+addExchange 2 8
+addExchange 3 9
+queryNthChild 2 0
+queryNthChild 3 0
+switchOnMobile 8555500335 4
+switchOnMobile 7555772945 4
+queryMobilePhoneSet 4
+queryMobilePhoneSet 1
+switchOnMobile 8555545897 5
+switchOnMobile 8555210857 5
+queryMobilePhoneSet 1
+switchOffMobile 8555545897
+queryMobilePhoneSet 1
+switchOnMobile 7555551628 6
+switchOnMobile 9155517434 7 
+switchOnMobile 9455515810 8
+switchOnMobile 9255571196 8
+switchOnMobile 9055551335 9
+queryMobilePhoneSet 0
+switchOffMobile 8555500335

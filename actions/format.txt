@@ -1,0 +1,17 @@
+# Note there is a single space after the first word, 
+# and in between arguments, and no space at the end 
+
+# To add exchange with id b to exchange with id a's children
+addExchange a b
+
+# To get the bth child of exchange with id a
+queryNthChild a b
+
+# To switch on mobile number a and register to exchange b
+switchOnMobile a b
+
+# To switch off mobile number a
+switchOffMobile a
+
+# To get a list of all mobiles in exchange with id a
+queryMobilePhoneSet a

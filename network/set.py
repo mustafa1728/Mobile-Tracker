@@ -30,3 +30,15 @@ class Myset():
 		common_elements = [e for e in self.elements if set_a.isMember(e)]
 		return Myset(common_elements)
 
+	def __iter__(self):
+		return iter(self.elements)
+
+	def __getitem__(self, i):
+		return self.elements[i]
+
+	def __len__(self):
+		return len(self.elements)
+
+	def __contains__(self, e):
+		return self.isMember(e)
+

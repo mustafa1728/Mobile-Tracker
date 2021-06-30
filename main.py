@@ -2,10 +2,10 @@ from network.routing import RoutingMapTree
 
 def main():
 	database = RoutingMapTree()
-	# insert some exchanges with heirarchy
-	# insert some mobiles
-	# run simulation
-
+	f = open("actions/actions1.txt", "r")
+	for line in f:
+		database.performAction(line)
+	print(database)
 
 if __name__ == "__main__":
     main()

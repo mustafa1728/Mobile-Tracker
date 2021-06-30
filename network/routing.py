@@ -149,6 +149,15 @@ class RoutingMapTree():
 			exc = exc.parent
 		self.switchOn(mobile_no, exchange_id)
 
+	def getBaseExchanges(self):
+		if len(self.root.children)==0:
+			return [self.root.id]
+		else:
+			exchanges = []
+			for i in range(len(self.root.children)):
+				exchanges += self.subtree(i).getBaseExchanges()
+			return exchanges
+
 	def performAction(self, message):
 		words = message.split()
 		if words[0].lower() == "addexchange":

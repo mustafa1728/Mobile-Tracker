@@ -37,9 +37,23 @@
             </h5>
             <hr>
         </div>
-        <button type="submit" class="login btn btn-outline-primary">
-            <b>Log In</b><br>
-        </button>
+        {% if on %}
+            <h5 align="center">
+                Mobile Number: {{mobile_no}}<br>
+                Serviced by Exchange: {{exchange_id}}
+            </h5>
+            <form action = "/switch_off" method = "GET">
+                <button type="submit" class="login btn btn-outline-primary">
+                    <b>Switch Off</b><br>
+                </button>
+            </form>
+        {% else %}
+            <form action = "/switch_on" method = "GET">
+                <button type="submit" class="login btn btn-outline-primary">
+                    <b>Switch On</b><br>
+                </button>
+            </form>
+        {% endif %}
         <div class="container">
             <div class="row justify-content-center" >
             {% for exchange_id in exchanges_list %}
@@ -47,7 +61,6 @@
                 <button type="submit" class="bay btn btn-outline-primary">
                     <b>Exchange ID: {{exchange_id}}</b><br>
                 </button>
-                <input type="hidden"  name="id" value="{{exchange_id}}">
                 </div>
             {% endfor %}
             </div>

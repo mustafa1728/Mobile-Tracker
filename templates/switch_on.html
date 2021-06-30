@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <title>Mobile Tracking</title> 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <style type="text/css">
+            .bay{
+                width: 15vw;
+                min-width: 120px;
+                height:20vh;
+                min-height: 100px;
+                font-size: 20px;
+                margin-bottom: 20px;
+            }
+            .headers{
+                text-align: center;
+                margin-top: 5vh;
+            }
+            .loc_declare{
+                text-align: center;
+                margin-top: 5vh;
+            }
+        </style>
+    </head>
+    <body>
+        <div class = "headers">
+            <h1>
+                Mobile Tracking
+            </h1>
+            <h5>
+                - Mustafa Chasmai -
+            </h5>
+            <hr>
+        </div>
+
+        <h4 style="text-align: center;margin-bottom: 5vh;">Switching On your mobile phone!</h4>
+        <form action = "/switch_on" method = "POST">
+            <div class="container" style="max-width: 500px;">
+                <div class="input-group mb-2" align="center">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Enter Mobile Number</span>
+                    <span class="input-group-text">+91</span>
+                  </div>
+                  <input type="number" class="form-control" name="number">
+                </div>
+            </div>
+            <div class="container">
+                <h5 class="loc_declare"> 
+                    Select an exchange to service your location!
+                </h5>
+                <div class="row justify-content-center" >
+                {% for exchange_id in exchanges_list %}
+                    <div class="col-sm-3 ">
+                    <button type="submit" class="bay btn btn-outline-primary" name="id" value="{{exchange_id}}">
+                        <b>Exchange ID: {{exchange_id}}</b><br>
+                    </button>
+                    </div>
+                {% endfor %}
+                </div>
+            </div> 
+        </form>
+    </body>
+</html>

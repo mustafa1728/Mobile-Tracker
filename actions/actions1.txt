@@ -27,3 +27,10 @@ switchOnMobile 9255571196 8
 switchOnMobile 9055551335 9
 queryMobilePhoneSet 0
 switchOffMobile 8555500335
+queryFindPhone 7555551628
+queryLowestRouter 8 9
+queryLowestRouter 8 7
+queryFindCallPath 9255571196 9055551335
+queryFindCallPath 9255571196 9255571196
+queryFindCallPath 9155517434 9055551335
+movePhone 9155517434 8

@@ -18,7 +18,7 @@ class RoutingMapTree():
 	def containsNode(self, e):
 		if self.root.id == e.id:
 			return True
-		for i in range(len(self.children)):
+		for i in range(len(self.root.children)):
 			if self.subtree(i).containsNode(e):
 				return True
 		return False
@@ -42,6 +42,9 @@ class RoutingMapTree():
 
 
 	def switchOn(self, mobile_no, exchange_id):
+		if self.findPhoneRec(mobile_no) is not None:
+			self.movePhone(mobile_no, exchange_id)
+			return 
 		exchange = self.getExchangeFromId(exchange_id)
 		if exchange is None: 
 			raise ValueError("No exchange with identifier "+str(exchange_id))
@@ -72,6 +75,79 @@ class RoutingMapTree():
 		exchange = self.getExchangeFromId(exchange_id)
 		return str(RoutingMapTree(exchange))
 
+	def findPhoneRec(self, mobile_no):
+		if len(self.root.children) == 0:
+			for mobile in self.root.mobiles:
+				if mobile.number == mobile_no:
+					return mobile
+			return None
+		else:
+			for i in range(len(self.root.children)):
+				mobile = self.subtree(i).findPhoneRec(mobile_no)
+				if mobile is not None:
+					return mobile
+			return None
+
+	def findPhone(self, mobile_no):
+		mobile = self.findPhoneRec(mobile_no)
+		if mobile is not None:
+			return mobile
+		else:
+			raise ValueError("The mobile number "+str(mobile_no)+" was not found!")
+
+	def lowestRouter(self, exchange_a_id, exchange_b_id):
+		exchange_a = self.getExchangeFromId(exchange_a_id)
+		exchange_b = self.getExchangeFromId(exchange_b_id)
+		if exchange_a is None:
+			raise ValueError("No exchange "+str(exchange_a_id)+" found!")
+		if exchange_b is None:
+			raise ValueError("No exchange "+str(exchange_b_id)+" found!")
+		return self.commonAncestor(exchange_a, exchange_b)
+
+	def commonAncestor(self, exchange_a, exchange_b):
+		if exchange_a.id == exchange_b.id:
+			return exchange_a
+		for i in range(len(self.root.children)):
+			contains_a = self.subtree(i).containsNode(exchange_a)
+			contains_b = self.subtree(i).containsNode(exchange_b)
+			if contains_a and contains_b:
+				return self.subtree(i).commonAncestor(exchange_a, exchange_b)
+			elif contains_a or contains_b:
+				return self.root
+
+	def shortestPath(self, exchange_a, exchange_b):
+		lca = self.commonAncestor(exchange_a, exchange_b)
+		path_a = []
+		while exchange_a.id != lca.id:
+			path_a.append(str(exchange_a))
+			exchange_a = exchange_a.parent
+
+		path_b = []
+		while exchange_b.id != lca.id:
+			path_b.append(str(exchange_b))
+			exchange_b = exchange_b.parent
+
+		return path_a + [str(lca)] + path_b[::-1]
+
+	def routeCall(self, a_no, b_no):
+		mobile_a = self.findPhone(a_no)
+		if not mobile_a.status():
+			raise ValueError("Please switch on your phone ("+str(a_no)+")!")
+		mobile_b = self.findPhone(b_no)
+		if not mobile_b.status():
+			raise ValueError("The person you are trying to reach ("+str(b_no)+") is currently switched off!")
+		return self.shortestPath(mobile_a.location, mobile_b.location)
+
+	def movePhone(self, mobile_no, exchange_id):
+		mobile = self.findPhone(mobile_no)
+		exchange = self.getExchangeFromId(exchange_id)
+		if exchange is None:
+			raise ValueError("The exchange "+str(exchange_id)+" does not exist!")
+		exc = mobile.location
+		while exc is not None:
+			exc.mobiles.Delete(mobile)
+			exc = exc.parent
+		self.switchOn(mobile_no, exchange_id)
 
 	def performAction(self, message):
 		words = message.split()
@@ -85,6 +161,14 @@ class RoutingMapTree():
 			return self.nthChild(int(words[1]), int(words[2]))
 		elif words[0].lower() == "querymobilephoneset":
 			return self.mobileSet(int(words[1]))
+		elif words[0].lower() == "queryfindphone":
+			return self.findPhone(int(words[1])).location
+		elif words[0].lower() == "querylowestrouter":
+			return self.lowestRouter(int(words[1]), int(words[2]))
+		elif words[0].lower() == "queryfindcallpath":
+			return self.routeCall(int(words[1]), int(words[2]))
+		elif words[0].lower() == "movephone":
+			return self.movePhone(int(words[1]), int(words[2]))
 		else:
 			raise ValueError("Unknown action: " + str(message))
 

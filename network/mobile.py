@@ -14,10 +14,7 @@ class MobilePhone():
 		return self.number
 
 	def status(self):
-		if self.switched_on:
-			return "On"
-		else:
-			return "Off"
+		return self.switched_on
 
 	def switchOn(self):
 		self.switched_on = True

@@ -24,11 +24,3 @@ python3 main.py --actions actions/actions1.txt
 
 The app is being deployed on heroku. It should show up [here](https://mysterious-woodland-91712.herokuapp.com).
 
-## Todos
-
-- [x] Build static routing map 
-- [x] Add static tracking 
-- [x] Add dynamic tracking
-- [ ] Complete flask app
-- [ ] Deploy flask app on heroku
-
